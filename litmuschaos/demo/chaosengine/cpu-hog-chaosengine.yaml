@@ -1,0 +1,27 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: nginx-cpu-hog
+  namespace: default
+spec:
+  jobCleanUpPolicy: delete
+  monitoring: false
+  appinfo: 
+    appns: default 
+    # FYI, To see app label, apply kubectl get pods --show-labels
+    applabel: "name=hello" 
+    appkind: deployment
+  chaosServiceAccount: nginx 
+  experiments:
+    - name: cpu-hog
+      spec:
+        components:
+          # set chaos duration (in sec) as desired
+          - name: TOTAL_CHAOS_DURATION
+            value: '60'
+          # set chaos platform as desired
+          # - name: PLATFORM
+          #   value: 'ANY'
+          # chaos lib used to inject the chaos
+          - name: LIB
+            value: 'litmus'

@@ -1,0 +1,22 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: nginx-pod-delete
+  namespace: default
+spec:
+  jobCleanUpPolicy: delete
+  monitoring: false
+  appinfo: 
+    appns: default 
+    # FYI, To see app label, apply kubectl get pods --show-labels
+    applabel: "name=hello" 
+    appkind: deployment
+  chaosServiceAccount: nginx 
+  experiments:
+    - name: pod-delete
+      spec:
+        components:
+        - name: FORCE
+          value: "true"
+        - name: TOTAL_CHAOS_DURATION
+          value: "30"
