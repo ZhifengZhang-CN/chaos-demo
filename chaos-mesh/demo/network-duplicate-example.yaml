@@ -1,0 +1,20 @@
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-duplicate-example
+  namespace: test
+spec:
+  action: duplicate
+  mode: one
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      "name": "hello-test"
+  duplicate:
+    duplicate: "40"
+    correlation: "25"
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+

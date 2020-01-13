@@ -1,0 +1,15 @@
+apiVersion: pingcap.com/v1alpha1
+kind: PodChaos
+metadata:
+  name: pod-kill-example
+  namespace: test
+spec:
+  action: pod-kill
+  mode: one
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      "name": "hello"
+  scheduler:
+    cron: "@every 1m"

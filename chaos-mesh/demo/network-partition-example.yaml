@@ -1,0 +1,25 @@
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-partition-example
+  namespace: test
+spec:
+  action: partition
+  mode: one
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      "name": "hello"
+  direction: to
+  target:
+    selector:
+      namespaces:
+        - default
+      labelSelectors:
+        "name": "hello-test"
+    mode: one
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+

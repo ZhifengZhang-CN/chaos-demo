@@ -1,0 +1,16 @@
+apiVersion: pingcap.com/v1alpha1
+kind: PodChaos
+metadata:
+  name: pod-failure-example
+  namespace: test
+spec:
+  action: pod-failure
+  mode: all
+  duration: "30s"
+  selector:
+    namespaces:
+      - default
+    labelSelectors:
+      "name": "hello"
+  scheduler:
+    cron: "@every 1m"
